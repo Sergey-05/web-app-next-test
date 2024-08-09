@@ -27,9 +27,7 @@ export default function Page(){
                 userData ?
                 (
                     <>
-            <Suspense fallback={<div>Loading user data...</div>}>
-        <UserDashboard userId={BigInt(userData.id)} />
-      </Suspense>
+            <UserDashboard userId={BigInt(userData.id)} />
 
         </>
                 ):
