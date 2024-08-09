@@ -6,8 +6,8 @@ import { Suspense } from "react";
 import UserDashboard from "./ui/user-dashboard";
 
 interface UserDataTg {
-    id: number,
-    first_name?: string,
+    id: number;
+    first_name?: string;
 }
 
 export default function Page() {
@@ -24,7 +24,7 @@ export default function Page() {
                     setError("User data is not available.");
                 }
             } catch (err) {
-                setError("Failed to load user data.");
+                setError(`Error initializing user data: ${(err as Error).message}`);
             } finally {
                 setLoading(false);
             }

@@ -20,7 +20,7 @@ export default function UserDashboard({ userId }: { userId: bigint }) {
                 const data = await fetchUserData(userId);
                 setUserData(data);
             } catch (error) {
-                setError("Failed to fetch user data.");
+                setError(`Error fetching user data: ${(error as Error).message}`);
             } finally {
                 setLoading(false);
             }
