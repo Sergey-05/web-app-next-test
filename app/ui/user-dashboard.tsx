@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { fetchUserData } from '@/app/lib/data';
 
 interface UserData {
-  id: bigint;
-  first_name: string;
-  balance: number;
-  deposit: number;
-  accumulation: number;
+    id: bigint;
+    first_name: string;
+    balance: number;
+    deposit: number;
+    accumulation: number;
 }
 
 export default function UserDashboard({ userId }: { userId: bigint }) {

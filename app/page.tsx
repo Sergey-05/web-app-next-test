@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Suspense } from "react";
 import UserDashboard from "./ui/user-dashboard";
 
-interface UserDataTg{
+interface UserDataTg {
     id: number,
     first_name?: string,
 }
