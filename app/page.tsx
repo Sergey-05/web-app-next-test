@@ -33,13 +33,17 @@ export default function Page() {
         fetchData();
     }, []);
 
+    if (loading) {
+        return <div>Loading user data...</div>;
+    }
+
+    if (error) {
+        return <div className="text-red-500">{error}</div>;
+    }
+
     return (
         <main className="p-4">
-            {loading ? (
-                <div>Loading user data...</div>
-            ) : error ? (
-                <div className="text-red-500">{error}</div>
-            ) : userData ? (
+            {userData ? (
                 <Suspense fallback={<div>Loading user dashboard...</div>}>
                     <UserDashboard userId={BigInt(userData.id)} />
                 </Suspense>

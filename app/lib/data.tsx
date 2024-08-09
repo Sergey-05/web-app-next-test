@@ -11,7 +11,8 @@ interface UserData {
 export async function fetchUserData(userId: bigint): Promise<UserData> {
     try {
         console.log("Fetching user data for ID:", userId.toString());
-        
+
+        // Преобразуем userId в строку перед использованием в SQL-запросе
         const data = await sql`
             SELECT id, first_name, balance, deposit, accumulation
             FROM users
@@ -22,7 +23,8 @@ export async function fetchUserData(userId: bigint): Promise<UserData> {
             throw new Error('User not found');
         }
 
-        const user = {
+        // Преобразуем данные для возврата
+        const user: UserData = {
             id: BigInt(data.rows[0].id),
             first_name: data.rows[0].first_name,
             balance: Number(data.rows[0].balance),
@@ -30,10 +32,8 @@ export async function fetchUserData(userId: bigint): Promise<UserData> {
             accumulation: Number(data.rows[0].accumulation),
         };
 
-        console.log("User data fetched:", user);
         return user;
     } catch (error) {
-        console.error('Database Error:', error);
-        throw new Error(`Failed to fetch user data: ${error.message}`);
+        throw new Error(`Failed to fetch user data: ${(error as Error).message}`);
     }
 }
