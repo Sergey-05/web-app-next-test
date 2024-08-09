@@ -1,15 +1,7 @@
-import { fetchUserData } from '@/app/lib/data';
 import { useEffect, useState } from 'react';
+import { fetchUserData } from '@/app/lib/data';
 
-interface UserData {
-  id: number;
-  first_name: string;
-  balance: number;
-  deposit: number;
-  accumulation: number;
-}
-
-export default function UserDashboard({ userId }: { userId: number }) {
+export default function UserDashboard({ userId }: { userId: bigint }) {
   const [userData, setUserData] = useState<UserData | null>(null);
 
   useEffect(() => {
@@ -29,7 +21,6 @@ export default function UserDashboard({ userId }: { userId: number }) {
     return <div>Loading...</div>;
   }
 
-  // Определение уровня тарифа
   let tariffLevel = 1;
   if (userData.deposit >= 5000 && userData.deposit < 25000) {
     tariffLevel = 2;
@@ -37,7 +28,6 @@ export default function UserDashboard({ userId }: { userId: number }) {
     tariffLevel = 3;
   }
 
-  // Процент от вклада
   const interestRate = tariffLevel === 1 ? 3 : tariffLevel === 2 ? 4 : 5;
 
   return (

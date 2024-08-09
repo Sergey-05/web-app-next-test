@@ -6,18 +6,18 @@ import { useState } from "react";
 import { Suspense } from "react";
 import UserDashboard from "./ui/user-dashboard";
 
-interface UserData{
+interface UserDataTg{
     id: number,
     first_name?: string,
 }
 
 export default function Page(){
 
-    const [userData, setUserData] = useState<UserData | null>(null)
+    const [userData, setUserData] = useState<UserDataTg | null>(null)
 
     useEffect(() => {
         if (WebApp.initDataUnsafe.user){
-            setUserData(WebApp.initDataUnsafe.user as UserData)
+            setUserData(WebApp.initDataUnsafe.user as UserDataTg)
         }
     }, [])
 
@@ -28,7 +28,7 @@ export default function Page(){
                 (
                     <>
             <Suspense fallback={<div>Loading user data...</div>}>
-        <UserDashboard userId={userData.id} />
+        <UserDashboard userId={BigInt(userData.id)} />
       </Suspense>
 
         </>
