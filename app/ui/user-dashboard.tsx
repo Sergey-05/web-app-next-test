@@ -9,6 +9,7 @@ export default function UserDashboard({ userId }: { userId: bigint }) {
       try {
         const data = await fetchUserData(userId);
         setUserData(data);
+        console.log("User Data:", data); // Вывод userData в консоль
       } catch (error) {
         console.error(error);
       }

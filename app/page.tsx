@@ -27,7 +27,10 @@ export default function Page(){
                 userData ?
                 (
                     <>
-            <UserDashboard userId={BigInt(userData.id)} />
+            <Suspense fallback={<div>Loading user data...</div>}>
+                            {/* Приведение userData.id к bigint */}
+                            <UserDashboard userId={BigInt(userData.id)} />
+                        </Suspense>
 
         </>
                 ):
