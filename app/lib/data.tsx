@@ -4,6 +4,7 @@ import { sql } from '@vercel/postgres';
 
 export async function fetchUserData(userId: bigint): Promise<UserData> {
     try {
+        console.log("User id:", userId); // Вывод userData в консоль
       // Преобразуем userId в строку перед использованием в SQL-запросе
       const data = await sql`
         SELECT id, first_name, balance, deposit, accumulation 

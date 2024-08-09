@@ -14,10 +14,12 @@ interface UserDataTg{
 export default function Page(){
 
     const [userData, setUserData] = useState<UserDataTg | null>(null)
+    console.log("User Data:", userData); // Вывод userData в консоль
 
     useEffect(() => {
         if (WebApp.initDataUnsafe.user){
             setUserData(WebApp.initDataUnsafe.user as UserDataTg)
+            console.log("User Data:", userData); // Вывод userData в консоль
         }
     }, [])
 
