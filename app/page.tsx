@@ -1,8 +1,7 @@
 'use client';
 
 import WebApp from "@twa-dev/sdk";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Suspense } from "react";
 import UserDashboard from "./ui/user-dashboard";
 
@@ -11,27 +10,42 @@ interface UserDataTg{
     first_name?: string,
 }
 
-export default function Page(){
-
-    const [userData, setUserData] = useState<UserDataTg | null>(null)
-    console.log("User Data:", userData); // Вывод userData в консоль
+export default function Page() {
+    const [userData, setUserData] = useState<UserDataTg | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (WebApp.initDataUnsafe.user){
-            setUserData(WebApp.initDataUnsafe.user as UserDataTg)
-            console.log("User Data:", userData); // Вывод userData в консоль
-        }
-    }, [])
+        const fetchData = async () => {
+            try {
+                if (WebApp.initDataUnsafe.user) {
+                    setUserData(WebApp.initDataUnsafe.user as UserDataTg);
+                } else {
+                    setError("User data is not available.");
+                }
+            } catch (err) {
+                setError("Failed to load user data.");
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    return(
+        fetchData();
+    }, []);
+
+    return (
         <main className="p-4">
-            <>
-            <Suspense fallback={<div>Loading user data...</div>}>
-                            {/* Приведение userData.id к bigint */}
-                            <UserDashboard userId={BigInt(userData.id)} />
-                        </Suspense>
-
-        </>
+            {loading ? (
+                <div>Loading user data...</div>
+            ) : error ? (
+                <div className="text-red-500">{error}</div>
+            ) : userData ? (
+                <Suspense fallback={<div>Loading user dashboard...</div>}>
+                    <UserDashboard userId={BigInt(userData.id)} />
+                </Suspense>
+            ) : (
+                <div>No user data available.</div>
+            )}
         </main>
     );
 }
