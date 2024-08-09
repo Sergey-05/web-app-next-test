@@ -25,21 +25,13 @@ export default function Page(){
 
     return(
         <main className="p-4">
-            {
-                userData ?
-                (
-                    <>
+            <>
             <Suspense fallback={<div>Loading user data...</div>}>
                             {/* Приведение userData.id к bigint */}
                             <UserDashboard userId={BigInt(userData.id)} />
                         </Suspense>
 
         </>
-                ):
-                (
-                    <div>Loading...</div>
-                )
-            }
         </main>
     );
 }
